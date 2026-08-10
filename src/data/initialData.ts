@@ -15,8 +15,8 @@ export const INITIAL_SITE_CONFIG: SiteConfig = {
   curatorImage: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80',
   heroBanner: {
     title: '이달의 여운의 책',
-    subtitle: '조용히 눈을 감고 곱씹고 싶은 한 권의 문장',
-    quote: '“우리가 진정으로 사유하기 시작할 때, 비로소 마음속 깊은 곳에서 조용한 여운이 피어난다.”',
+    subtitle: '시간이 흘러도 빛이 바래지 않는 텍스트의 힘을 믿습니다.',
+    quote: '우리가 진정으로 사유하기 시작할 때,\n비로소 마음속 깊은 곳에서\n조용한 여운이 피어난다',
     imageUrl: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1600&q=80',
     badgeText: 'Curated Exhibition',
     linkToType: 'curation',

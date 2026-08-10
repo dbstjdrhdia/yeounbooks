@@ -17,22 +17,20 @@ export const Footer: React.FC<FooterProps> = ({ config, onOpenAdmin }) => {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Company & Info Lines */}
         <div className="space-y-1.5 text-stone-600 font-light leading-relaxed">
+          <p className="text-[11px] text-stone-400 font-mono mb-1">
+            Copyright © Yeoun Books. All rights reserved.
+          </p>
           <p className="text-stone-500 text-xs">
-            경기도 파주시 문발동 출판문화정보산업단지 (여운책방 타임리스 서가)
+            21060 인천 계양구 계산새로 71 307호
           </p>
-          <p className="text-stone-500 text-xs flex flex-wrap items-center gap-x-2 gap-y-1">
-            <span>문의 {config.socialLinks.email}</span>
+          <p className="text-stone-500 text-xs flex flex-wrap items-center gap-x-2">
+            <span>사업자등록번호: 483-98-01948</span>
             <span className="text-stone-300">|</span>
-            <span>운영시간 평일 10:00 ~ 17:00 (점심시간 12:00 ~ 13:00)</span>
+            <span>문의: {config.socialLinks.email}</span>
           </p>
-          <div className="text-stone-500 text-xs flex flex-wrap items-center gap-x-2 gap-y-1 pt-0.5">
-            <span>기획·에디터: {config.curatorName}</span>
-            <span className="text-stone-300">|</span>
-            <span>에버그린 아카이브</span>
-          </div>
         </div>
 
-        {/* Scroll Top Button */}
+        {/* Scroll Top */}
         <div className="pt-4 border-t border-gray-100 flex items-center justify-end">
           <button
             onClick={scrollToTop}

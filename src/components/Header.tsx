@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ActiveTab, SiteConfig } from '../types';
-import { Bookmark, Instagram, Menu, X } from 'lucide-react';
+import { Instagram, Menu, X } from 'lucide-react';
 
 interface HeaderProps {
   config: SiteConfig;
@@ -42,15 +42,13 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-30 bg-[#FDFCFB]/90 backdrop-blur-sm border-b border-gray-100 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 h-20 flex items-center justify-between relative">
         {/* Logo (Left) */}
-        <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
-          <div>
-            <span className="text-2xl font-serif font-bold tracking-tighter text-[#1A1A1A] block">
-              {config.siteName}
-            </span>
-            <span className="text-[9px] uppercase tracking-[0.25em] text-[#8E8373] block -mt-1 font-mono">
-              {config.siteSubtitle}
-            </span>
-          </div>
+        <div className="flex flex-col justify-center cursor-pointer group" onClick={() => setActiveTab('home')}>
+          <span className="text-2xl font-serif font-bold tracking-tight text-[#1A1A1A] leading-none">
+            {config.siteName}
+          </span>
+          <span className="text-[10px] uppercase tracking-[0.25em] text-[#8E8373] font-mono leading-tight mt-1.5">
+            {config.siteSubtitle}
+          </span>
         </div>
 
         {/* Desktop Main Menu (Center - Clean Minimalist Nav) */}
@@ -71,26 +69,21 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* Right Action Icons */}
+        {/* Right Action Icons (Instagram) */}
         <div className="hidden md:flex items-center space-x-4">
-          {/* Bookmarks */}
-          <button
-            onClick={onOpenBookmarks}
-            className="relative text-gray-600 hover:text-black p-2 transition-colors"
-            title="보관한 문장"
-          >
-            <Bookmark className="w-4 h-4" />
-            {bookmarkCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-black text-white text-[9px] flex items-center justify-center font-bold">
-                {bookmarkCount}
-              </span>
-            )}
-          </button>
-
-          {/* Instagram Only */}
-          {config.socialLinks.instagram && (
+          {config.socialLinks?.instagram ? (
             <a
               href={config.socialLinks.instagram}
+              target="_blank"
+              rel="noreferrer"
+              className="p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100 flex items-center justify-center"
+              title="Instagram"
+            >
+              <Instagram className="w-4 h-4" />
+            </a>
+          ) : (
+            <a
+              href="https://instagram.com"
               target="_blank"
               rel="noreferrer"
               className="p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100 flex items-center justify-center"
@@ -114,7 +107,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-[#FDFCFB] px-6 py-6 space-y-4">
+        <div className="md:hidden border-t border-gray-100 bg-[#FDFCFB] px-6 py-6">
           <div className="flex flex-col space-y-3">
             {navItems.map((item) => (
               <button
@@ -132,29 +125,16 @@ export const Header: React.FC<HeaderProps> = ({
             ))}
           </div>
 
-          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-            <button
-              onClick={() => {
-                onOpenBookmarks();
-                setMobileMenuOpen(false);
-              }}
-              className="flex items-center space-x-2 text-xs uppercase tracking-widest text-gray-600"
+          <div className="flex items-center justify-end pt-4 border-t border-gray-100">
+            <a
+              href={config.socialLinks?.instagram || "https://instagram.com"}
+              target="_blank"
+              rel="noreferrer"
+              className="p-2 text-gray-600 hover:text-black transition-colors"
+              title="Instagram"
             >
-              <Bookmark className="w-4 h-4" />
-              <span>Bookmarks ({bookmarkCount})</span>
-            </button>
-
-            {config.socialLinks.instagram && (
-              <a
-                href={config.socialLinks.instagram}
-                target="_blank"
-                rel="noreferrer"
-                className="p-2 text-gray-600 hover:text-black transition-colors"
-                title="Instagram"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-            )}
+              <Instagram className="w-5 h-5" />
+            </a>
           </div>
         </div>
       )}

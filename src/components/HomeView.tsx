@@ -28,6 +28,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
   const featuredEssays = essays.filter(e => e.isFeatured).slice(0, 2);
 
   const hero = config.heroBanner;
+  const rawQuote = hero.quote || hero.title || '';
+  const cleanQuote = rawQuote.replace(/^[“"'\s]+|[”"'\s]+$/g, '');
 
   return (
     <div className="flex flex-col flex-grow">
@@ -40,11 +42,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <span className="text-[10px] uppercase tracking-[0.3em] text-[#8E8373] mb-6 block font-bold">
             {hero.badgeText || 'Monthly Curation — No. 12'}
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif italic leading-tight mb-8 text-[#1A1A1A]">
-            "{hero.quote || hero.title}"
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif leading-relaxed mb-8 text-[#1A1A1A] whitespace-pre-line font-medium tracking-tight">
+            “{cleanQuote}”
           </h1>
-          <p className="text-sm text-gray-500 leading-relaxed font-light mb-10 max-w-md mx-auto">
-            {hero.subtitle || '시간이 흘러도 빛이 바래지 않는 텍스트의 힘. 여운책방이 엄선한 에버그린 아카이브를 지금 만나보세요.'}
+          <p className="text-sm text-gray-500 leading-relaxed font-light mb-10 max-w-xl mx-auto break-keep">
+            {hero.subtitle || '시간이 흘러도 빛이 바래지 않는 텍스트의 힘을 믿습니다.'}
           </p>
           <div className="flex items-center justify-center space-x-4">
             <button
@@ -67,11 +69,6 @@ export const HomeView: React.FC<HomeViewProps> = ({
               About
             </button>
           </div>
-        </div>
-
-        {/* Floating Meta Info */}
-        <div className="absolute bottom-10 left-12 transform -rotate-90 origin-left text-[9px] uppercase tracking-[0.4em] text-[#8E8373]/60 font-mono hidden md:block">
-          Est. 2024 — Seoul, Korea
         </div>
       </section>
 
@@ -255,16 +252,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* 4. Minimal Quote Philosophy Statement */}
-      <section className="border-t border-gray-100 bg-white py-20 px-8 text-center">
-        <div className="max-w-2xl mx-auto space-y-6">
+      <section className="border-t border-gray-100 bg-white py-20 px-6 text-center">
+        <div className="max-w-3xl mx-auto space-y-6">
           <span className="text-[10px] uppercase tracking-[0.3em] text-[#8E8373] font-mono">
             Yeoun Books Statement
           </span>
-          <p className="text-2xl sm:text-3xl font-serif italic text-[#1A1A1A] leading-relaxed">
+          <p className="text-lg sm:text-2xl md:text-3xl font-serif italic text-[#1A1A1A] leading-relaxed break-keep">
             "시간이 흘러도 빛이 바래지 않는 텍스트의 힘을 믿습니다."
-          </p>
-          <p className="text-xs text-gray-400 uppercase tracking-widest font-mono">
-            Est. 2024 — Seoul, Korea
           </p>
         </div>
       </section>
