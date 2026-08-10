@@ -78,19 +78,25 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-5xl mx-auto">
               {config.upcomingBooks.map((book, idx) => (
                 <div key={idx} className="flex flex-col items-center group">
-                  <div className={`w-64 h-80 sm:h-96 ${book.coverStyle} p-6 flex flex-col justify-between shadow-sm group-hover:shadow-md transition-shadow relative mb-8`}>
-                    <div className="text-center text-white/80 text-[10px] tracking-widest pt-4 break-keep">
+                  <div className={`w-64 h-80 sm:h-96 ${book.coverStyle || 'bg-gray-100'} p-6 flex flex-col justify-between shadow-sm group-hover:shadow-md transition-shadow relative mb-8 overflow-hidden`}>
+                    {book.coverImage && (
+                      <div className="absolute inset-0 z-0">
+                        <img src={book.coverImage} alt={book.title} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+                        <div className="absolute inset-0 bg-black/30"></div>
+                      </div>
+                    )}
+                    <div className="relative z-10 text-center text-white/90 text-[10px] tracking-widest pt-4 break-keep">
                       {book.tagline}
                     </div>
-                    <div className="flex-1 flex items-center justify-center">
+                    <div className="relative z-10 flex-1 flex items-center justify-center">
                       <h3 
-                        className="text-xl sm:text-2xl text-white font-serif tracking-widest mx-auto leading-relaxed text-center"
+                        className="text-xl sm:text-2xl text-white font-serif tracking-widest mx-auto leading-relaxed text-center drop-shadow-md"
                         style={book.isVerticalTitle ? { writingMode: 'vertical-rl' } : undefined}
                       >
                         {book.title}
                       </h3>
                     </div>
-                    <div className="text-center text-white/90 text-xs pb-4">
+                    <div className="relative z-10 text-center text-white/90 text-xs pb-4 drop-shadow-sm">
                       {book.author}
                     </div>
                   </div>

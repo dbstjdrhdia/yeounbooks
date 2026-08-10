@@ -74,7 +74,8 @@ export interface SiteConfig {
     subtitle: string;
     author: string;
     description: string;
-    coverStyle: string;
+    coverStyle?: string;
+    coverImage?: string;
     isVerticalTitle?: boolean;
     tagline?: string;
   }[];

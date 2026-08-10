@@ -44,7 +44,7 @@ export const INITIAL_SITE_CONFIG: SiteConfig = {
       subtitle: '상실과 회복의 관점에서 따뜻하게 짚어내는 과거',
       author: '김푸름 지음',
       description: '과거에 대한 막연한 그리움이 어떻게 우리의 현재를 지탱하고 내일을 향해 나아가게 하는지, 심리학적 관점에서 따뜻하게 짚어냅니다.',
-      coverStyle: 'bg-gradient-to-b from-[#8FA8C4] via-[#D3B4A6] to-[#E3A284]',
+      coverImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', // Placeholder sunset image similar to the cover
       isVerticalTitle: true,
       tagline: '노스탤지어는 내일을 살아갈 작은 힘이 된다',
     },

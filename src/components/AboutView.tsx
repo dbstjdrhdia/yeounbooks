@@ -25,8 +25,8 @@ export const AboutView: React.FC<AboutViewProps> = ({ config }) => {
       {/* Main Hero Image */}
       <div className="relative border border-gray-100 overflow-hidden h-96">
         <img
-          src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1600&q=80"
-          alt="Yeoun Books Interior"
+          src="https://images.unsplash.com/photo-1440688807730-73e4e2169fb8?auto=format&fit=crop&w=1600&q=80"
+          alt="Calm misty water reflecting the philosophy of Yeoun Books"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
