@@ -45,70 +45,49 @@ export const AboutView: React.FC<AboutViewProps> = ({ config }) => {
           <h2 className="text-2xl font-serif font-bold text-[#1A1A1A] border-b border-gray-100 pb-4">
             우리가 추구하는 템포와 철학
           </h2>
-          <p className="text-gray-600 leading-relaxed font-light">
-            {config.aboutIntro}
-          </p>
-          {config.aboutBodyParagraphs.map((paragraph, index) => (
-            <p key={index} className="text-gray-600 leading-relaxed font-light">
-              {paragraph}
+          <div className="space-y-8 mt-8">
+            <p className="text-gray-600 leading-loose font-light break-keep whitespace-pre-line">
+              {config.aboutIntro}
             </p>
-          ))}
+            {config.aboutBodyParagraphs.map((paragraph, index) => (
+              <p key={index} className="text-gray-600 leading-loose font-light break-keep whitespace-pre-line">
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Core Brand Values (3 Pillar Cards) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white border border-gray-100 p-8 space-y-3 hover:border-black transition-colors">
-          <span className="text-[9px] uppercase tracking-widest text-[#8E8373] font-mono block">01</span>
-          <h3 className="text-lg font-serif font-bold text-[#1A1A1A]">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="bg-white border border-gray-100 p-8 lg:p-10 space-y-4 hover:border-black transition-colors">
+          <span className="text-[10px] uppercase tracking-widest text-[#8E8373] font-mono block">01</span>
+          <h3 className="text-xl font-serif font-bold text-[#1A1A1A]">
             Timeless
           </h3>
-          <p className="text-xs text-gray-500 leading-relaxed">
-            실시간 뉴스피드가 아닌, 시간이 지나도 가치를 잃지 않는 에버그린 콘텐츠만을 축적합니다.
+          <p className="text-[13px] text-gray-500 leading-[1.8] break-keep">
+            시대의 유행에 휩쓸리지 않고, 오랜 시간이 흐른 뒤에도 서재 한 켠에 남겨두고 싶은 텍스트만을 지향합니다.
           </p>
         </div>
 
-        <div className="bg-white border border-gray-100 p-8 space-y-3 hover:border-black transition-colors">
-          <span className="text-[9px] uppercase tracking-widest text-[#8E8373] font-mono block">02</span>
-          <h3 className="text-lg font-serif font-bold text-[#1A1A1A]">
-            High Curation
-          </h3>
-          <p className="text-xs text-gray-500 leading-relaxed">
-            양보다는 완성도에 집착합니다. 한 달에 단 한 권, 단 한 편의 글이라도 묵직하게 담아냅니다.
-          </p>
-        </div>
-
-        <div className="bg-white border border-gray-100 p-8 space-y-3 hover:border-black transition-colors">
-          <span className="text-[9px] uppercase tracking-widest text-[#8E8373] font-mono block">03</span>
-          <h3 className="text-lg font-serif font-bold text-[#1A1A1A]">
-            Pure Space
-          </h3>
-          <p className="text-xs text-gray-500 leading-relaxed">
-            시각적 소음을 배제하고 넓은 여백과 가독성 높은 레이아웃으로 완벽한 독서 몰입을 선물합니다.
-          </p>
-        </div>
-      </div>
-
-      {/* Curator Profile */}
-      <div className="bg-white border border-gray-100 p-8 flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-8">
-        <img
-          src={config.curatorImage}
-          alt={config.curatorName}
-          className="w-20 h-20 rounded-full object-cover border border-gray-200 shrink-0"
-        />
-        <div className="space-y-2 text-center sm:text-left">
-          <span className="text-[10px] font-bold text-[#8E8373] uppercase tracking-[0.2em] font-mono">
-            Curator Note
-          </span>
+        <div className="bg-white border border-gray-100 p-8 lg:p-10 space-y-4 hover:border-black transition-colors">
+          <span className="text-[10px] uppercase tracking-widest text-[#8E8373] font-mono block">02</span>
           <h3 className="text-xl font-serif font-bold text-[#1A1A1A]">
-            {config.curatorName}
+            Slow Paced
           </h3>
-          <p className="text-sm font-serif text-gray-600 leading-relaxed">
-            {config.curatorBio}
+          <p className="text-[13px] text-gray-500 leading-[1.8] break-keep">
+            빠른 출간보다는 온전한 사유를 믿습니다. 조급함을 내려놓고 문장이 온전히 숨 쉴 수 있는 여백을 만들어갑니다.
           </p>
-          <div className="pt-2 text-xs text-gray-400 font-mono">
-            Contact: {config.socialLinks.email}
-          </div>
+        </div>
+
+        <div className="bg-white border border-gray-100 p-8 lg:p-10 space-y-4 hover:border-black transition-colors">
+          <span className="text-[10px] uppercase tracking-widest text-[#8E8373] font-mono block">03</span>
+          <h3 className="text-xl font-serif font-bold text-[#1A1A1A]">
+            Minimalism
+          </h3>
+          <p className="text-[13px] text-gray-500 leading-[1.8] break-keep">
+            불필요한 수사와 시각적 소음을 배제하고, 독자가 활자의 본질적인 질감과 의미에만 깊이 몰입할 수 있도록 돕습니다.
+          </p>
         </div>
       </div>
     </div>

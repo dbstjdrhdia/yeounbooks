@@ -53,7 +53,7 @@ export const BookmarksModal: React.FC<BookmarksModalProps> = ({
             <div className="text-center py-16 space-y-3">
               <Bookmark className="w-8 h-8 text-gray-300 mx-auto" />
               <p className="text-gray-500 font-serif text-sm">
-                보관함이 비어 있습니다.<br />마음에 남는 큐레이션 도서나 에세이의 북마크 아이콘을 눌러 담아보세요.
+                보관함이 비어 있습니다.<br />마음에 남는 에세이의 북마크 아이콘을 눌러 담아보세요.
               </p>
             </div>
           ) : (

@@ -3,24 +3,23 @@ import { BookCuration, StoryEssay, SiteConfig } from '../types';
 export const INITIAL_SITE_CONFIG: SiteConfig = {
   siteName: '여운책방',
   siteSubtitle: 'Yeoun Books',
-  slogan: '마음에 긴 여운을 남기는 문장과 이야기',
-  aboutIntro: '속도와 효율의 시대 속에서, 저희는 다소 느리더라도 오래도록 마음에 남아 조용히 맴도는 문장들의 힘을 믿습니다.',
+  slogan: '마음의 궤적을 쫓는\n심리 전문 출판사',
+  aboutIntro: '보이지 않는 마음의 결을 섬세하게 짚어내는 곳,\n여운책방은 우리 내면의 목소리를 활자로 담아내는\n심리 전문 출판사입니다.',
   aboutBodyParagraphs: [
-    '여운책방은 매일 쏟아지는 뉴스 피드와 자극적인 정보의 홍수에서 벗어나, 시간이 흘러도 가치를 잃지 않는 에버그린(Evergreen) 콘텐츠를 다듬고 차곡차곡 보관하는 타임리스 아카이브 공간입니다.',
-    '우리가 쫓기는 것은 시간 자체가 아니라 마음의 여백일지도 모릅니다. 단 한 편의 글, 책 한 권에서 발췌된 묵직한 몇 줄의 문장이 당신의 오늘 밤을 조금 더 깊고 포근하게 만들어주기를 바랍니다.',
-    '비정기적으로 엄선하는 [여운의 책]과 오랜 사색 끝에 가다듬은 [여운의 글]은 언제 방문하더라도 항상 당신을 조용히 기다리고 있을 것입니다.'
+    '우리는 현재 첫 번째 심리 에세이 출간을 앞두고 조용히 원고를 다듬고 있습니다.\n책이라는 사물이 지닌 무게감과 그 안에 담길 위로의 텍스트를 깊이 고민하며\n정성스럽게 첫 발을 내딛고 있습니다.',
+    '책 한 권이 세상에 나오기까지의 과정은 스스로의 마음을 들여다보는 긴 사유의 연속입니다.\n섣불리 무언가를 찍어내기보다, 내면을 먼저 비워내고\n단단한 문장들만을 선별하여 차곡차곡 모아가려 합니다.',
+    '앞으로 여운책방이 세상에 내놓을 책들은 화려한 장식이나\n자극적인 수사 없이, 오직 마음의 본질에 닿는\n고요한 조약돌 같기를 바랍니다.\n\n우리의 첫 책이 당신의 손에 닿는 날까지,\n이 공간에서 사색의 여정을 함께해 주시기를 기대합니다.'
   ],
   curatorName: '여운책방 지기',
-  curatorBio: '책과 종이 향기, 고요한 밤의 사색을 사랑하는 도서 큐레이터이자 에세이스트.',
+  curatorBio: '마음의 결을 읽고 쓰는 사람, 조용한 사색을 사랑하는 에세이스트.',
   curatorImage: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80',
   heroBanner: {
-    title: '이달의 여운의 책',
-    subtitle: '시간이 흘러도 빛이 바래지 않는 텍스트의 힘을 믿습니다.',
-    quote: '우리가 진정으로 사유하기 시작할 때,\n비로소 마음속 깊은 곳에서\n조용한 여운이 피어난다',
+    title: '여운책방',
+    subtitle: '보이지 않는 마음의 결을 짚어내는\n심리 전문 출판사입니다.',
+    quote: '비워냄으로써 비로소 채워지는,\n마음의 궤적을 쫓다',
     imageUrl: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1600&q=80',
-    badgeText: 'Curated Exhibition',
-    linkToType: 'curation',
-    linkToId: 'curation-1'
+    badgeText: 'Yeoun Books',
+    linkToType: 'about',
   },
   theme: {
     fontStyle: 'gowun',
@@ -29,15 +28,36 @@ export const INITIAL_SITE_CONFIG: SiteConfig = {
   },
   operationalNotice: {
     enabled: true,
-    bannerText: '매월 1일, 마음에 긴 여운을 남기는 새로운 문장과 엄선된 도서가 찾아옵니다.',
+    bannerText: '여운책방의 첫 번째 심리 에세이를 고요히 준비하며,\n그 사유의 과정을 기록하고 있습니다.',
     modelType: 'monthly'
   },
   socialLinks: {
     instagram: 'https://instagram.com',
+    naverBlog: 'https://blog.naver.com',
     substack: 'https://substack.com',
     youtube: 'https://youtube.com',
     email: 'contact@yeounbooks.com'
   },
+  upcomingBooks: [
+    {
+      title: '그리움의 심리학',
+      subtitle: '상실과 회복의 관점에서 따뜻하게 짚어내는 과거',
+      author: '김푸름 지음',
+      description: '과거에 대한 막연한 그리움이 어떻게 우리의 현재를 지탱하고 내일을 향해 나아가게 하는지, 심리학적 관점에서 따뜻하게 짚어냅니다.',
+      coverStyle: 'bg-gradient-to-b from-[#8FA8C4] via-[#D3B4A6] to-[#E3A284]',
+      isVerticalTitle: true,
+      tagline: '노스탤지어는 내일을 살아갈 작은 힘이 된다',
+    },
+    {
+      title: '자기효능감의 심리학',
+      subtitle: '다시 일어서는 내면의 힘',
+      author: '김푸름 지음',
+      description: '국제평화유지군의 상처와 회복. 스스로를 믿는 감각인 \'자기효능감\'이 어떻게 무너진 삶을 다시 일으키는 굳건한 축이 되는지 탐구합니다.',
+      coverStyle: 'bg-[#1a3a2d]',
+      isVerticalTitle: false,
+      tagline: '나는 견딜 수 있다',
+    }
+  ],
   seo: {
     metaTitle: '여운책방 (Yeoun Books) - 마음에 긴 여운을 남기는 문장과 이야기',
     metaDescription: '시간이 지나도 가치를 잃지 않는 에버그린 도서 큐레이션과 깊이 있는 에세이 아카이브 공간입니다.',

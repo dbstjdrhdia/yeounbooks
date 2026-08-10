@@ -16,18 +16,11 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomeView } from './components/HomeView';
 import { AboutView } from './components/AboutView';
-import { CurationView } from './components/CurationView';
-import { CurationDetailView } from './components/CurationDetailView';
-import { StoryView } from './components/StoryView';
-import { StoryDetailView } from './components/StoryDetailView';
 import { AdminDashboard } from './components/AdminDashboard';
 import { BookmarksModal } from './components/BookmarksModal';
-import { AudioPlayer } from './components/AudioPlayer';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
-  const [selectedCurationId, setSelectedCurationId] = useState<string | null>(null);
-  const [selectedEssayId, setSelectedEssayId] = useState<string | null>(null);
 
   const [config, setConfig] = useState<SiteConfig>(getStoredConfig);
   const [curations, setCurations] = useState<BookCuration[]>(getStoredCurations);
@@ -45,22 +38,6 @@ export default function App() {
   // Handle Tab Switch
   const handleTabChange = (tab: ActiveTab) => {
     setActiveTab(tab);
-    if (tab !== 'curation-detail') setSelectedCurationId(null);
-    if (tab !== 'story-detail') setSelectedEssayId(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Select specific curation
-  const handleSelectCuration = (id: string) => {
-    setSelectedCurationId(id);
-    setActiveTab('curation-detail');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Select specific essay
-  const handleSelectEssay = (id: string) => {
-    setSelectedEssayId(id);
-    setActiveTab('story-detail');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -123,9 +100,6 @@ export default function App() {
     }
   };
 
-  const currentCuration = curations.find((c) => c.id === selectedCurationId) || curations[0];
-  const currentEssay = essays.find((e) => e.id === selectedEssayId) || essays[0];
-
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-300 ${getBgClass()} ${getFontClass()}`}>
       {/* GNB Header */}
@@ -143,57 +117,11 @@ export default function App() {
         {activeTab === 'home' && (
           <HomeView
             config={config}
-            curations={curations}
-            essays={essays}
             setActiveTab={handleTabChange}
-            onSelectCuration={handleSelectCuration}
-            onSelectEssay={handleSelectEssay}
-            bookmarks={bookmarks}
-            onToggleBookmark={handleToggleBookmark}
           />
         )}
 
         {activeTab === 'about' && <AboutView config={config} />}
-
-        {activeTab === 'curation' && (
-          <CurationView
-            config={config}
-            curations={curations}
-            onSelectCuration={handleSelectCuration}
-            bookmarks={bookmarks}
-            onToggleBookmark={handleToggleBookmark}
-          />
-        )}
-
-        {activeTab === 'curation-detail' && currentCuration && (
-          <CurationDetailView
-            config={config}
-            curation={currentCuration}
-            onBack={() => handleTabChange('curation')}
-            bookmarks={bookmarks}
-            onToggleBookmark={handleToggleBookmark}
-          />
-        )}
-
-        {activeTab === 'story' && (
-          <StoryView
-            config={config}
-            essays={essays}
-            onSelectEssay={handleSelectEssay}
-            bookmarks={bookmarks}
-            onToggleBookmark={handleToggleBookmark}
-          />
-        )}
-
-        {activeTab === 'story-detail' && currentEssay && (
-          <StoryDetailView
-            config={config}
-            essay={currentEssay}
-            onBack={() => handleTabChange('story')}
-            bookmarks={bookmarks}
-            onToggleBookmark={handleToggleBookmark}
-          />
-        )}
       </main>
 
       {/* Footer */}
@@ -219,13 +147,10 @@ export default function App() {
         bookmarks={bookmarks}
         curations={curations}
         essays={essays}
-        onSelectCuration={handleSelectCuration}
-        onSelectEssay={handleSelectEssay}
+        onSelectCuration={() => {}}
+        onSelectEssay={() => {}}
         onToggleBookmark={handleToggleBookmark}
       />
-
-      {/* Ambient Sound Player */}
-      <AudioPlayer />
     </div>
   );
 }

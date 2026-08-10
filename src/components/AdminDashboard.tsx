@@ -46,7 +46,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   if (!isOpen) return null;
 
   const [activeTab, setActiveTab] = useState<'content' | 'theme' | 'hero' | 'ai' | 'seo' | 'solution'>('content');
-  const [contentSubTab, setContentSubTab] = useState<'curation' | 'essay'>('curation');
+  const [contentSubTab, setContentSubTab] = useState<'essay'>('essay');
 
   // Form State for editing site config
   const [localConfig, setLocalConfig] = useState<SiteConfig>(config);
@@ -245,258 +245,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
         {/* Tab Body Content */}
         <div className="p-6 overflow-y-auto flex-1 space-y-6">
-          {/* TAB 1: Content Management (Curations & Essays) */}
+          {/* TAB 1: Content Management (Essays) */}
           {activeTab === 'content' && (
             <div className="space-y-6">
-              {/* Subtabs */}
-              <div className="flex items-center space-x-3 bg-stone-100 p-1.5 rounded-xl max-w-md">
-                <button
-                  onClick={() => {
-                    setContentSubTab('curation');
-                    setEditingCuration(null);
-                  }}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                    contentSubTab === 'curation' ? 'bg-white text-[#1A1918] shadow-sm' : 'text-stone-600'
-                  }`}
-                >
-                  여운의 책 (도서 큐레이션)
-                </button>
-                <button
-                  onClick={() => {
-                    setContentSubTab('essay');
-                    setEditingEssay(null);
-                  }}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                    contentSubTab === 'essay' ? 'bg-white text-[#1A1918] shadow-sm' : 'text-stone-600'
-                  }`}
-                >
-                  여운의 글 (에세이)
-                </button>
-              </div>
-
-              {/* Subtab 1: Curation Management */}
-              {contentSubTab === 'curation' && (
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-base font-bold font-gowun text-[#1A1918]">
-                        도서 큐레이션 목록 ({curations.length}개)
-                      </h3>
-                      <p className="text-xs text-stone-500">
-                        타사 도서를 전시하듯 소개하는 큐레이션 보관함입니다.
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setEditingCuration({
-                        id: `curation-${Date.now()}`,
-                        title: '',
-                        subtitle: '',
-                        author: '',
-                        publisher: '',
-                        category: '에세이',
-                        coverImage: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80',
-                        quote: '',
-                        review: '',
-                        tags: ['사색', '감성'],
-                        isFeatured: false
-                      })}
-                      className="bg-[#1A1918] text-[#FAF9F5] hover:bg-[#3A3835] px-4 py-2 rounded-lg text-xs font-medium flex items-center space-x-1.5"
-                    >
-                      <Plus className="w-4 h-4" />
-                      <span>새 큐레이션 도서 작성</span>
-                    </button>
-                  </div>
-
-                  {/* Curation Form Modal/Inline */}
-                  {editingCuration && (
-                    <form onSubmit={handleSaveCurationForm} className="bg-white p-6 rounded-xl border-2 border-[#8C6239] space-y-4 shadow-md">
-                      <h4 className="text-sm font-bold font-gowun text-[#8C6239] border-b pb-2">
-                        {curations.some(c => c.id === editingCuration.id) ? '큐레이션 수정' : '새 큐레이션 도서 추가'}
-                      </h4>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                        <div>
-                          <label className="block text-stone-700 font-medium mb-1">도서 제목 *</label>
-                          <input
-                            type="text"
-                            required
-                            value={editingCuration.title}
-                            onChange={(e) => setEditingCuration({ ...editingCuration, title: e.target.value })}
-                            className="w-full p-2.5 bg-[#FAF9F5] border border-[#EAE5D9] rounded-lg focus:outline-none focus:border-[#1A1918]"
-                            placeholder="예: 작은 것들의 신성이 피어나는 서가"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-stone-700 font-medium mb-1">부제목 / 부연설명</label>
-                          <input
-                            type="text"
-                            value={editingCuration.subtitle}
-                            onChange={(e) => setEditingCuration({ ...editingCuration, subtitle: e.target.value })}
-                            className="w-full p-2.5 bg-[#FAF9F5] border border-[#EAE5D9] rounded-lg focus:outline-none focus:border-[#1A1918]"
-                            placeholder="예: 침묵 속에서 스스로를 찾아가는 서사"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-stone-700 font-medium mb-1">저자 *</label>
-                          <input
-                            type="text"
-                            required
-                            value={editingCuration.author}
-                            onChange={(e) => setEditingCuration({ ...editingCuration, author: e.target.value })}
-                            className="w-full p-2.5 bg-[#FAF9F5] border border-[#EAE5D9] rounded-lg focus:outline-none focus:border-[#1A1918]"
-                            placeholder="예: 한정원"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-stone-700 font-medium mb-1">출판사 *</label>
-                          <input
-                            type="text"
-                            required
-                            value={editingCuration.publisher}
-                            onChange={(e) => setEditingCuration({ ...editingCuration, publisher: e.target.value })}
-                            className="w-full p-2.5 bg-[#FAF9F5] border border-[#EAE5D9] rounded-lg focus:outline-none focus:border-[#1A1918]"
-                            placeholder="예: 난다"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-stone-700 font-medium mb-1">카테고리</label>
-                          <input
-                            type="text"
-                            value={editingCuration.category}
-                            onChange={(e) => setEditingCuration({ ...editingCuration, category: e.target.value })}
-                            className="w-full p-2.5 bg-[#FAF9F5] border border-[#EAE5D9] rounded-lg focus:outline-none focus:border-[#1A1918]"
-                            placeholder="예: 에세이 / 독서일기"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-stone-700 font-medium mb-1">표지 이미지 URL</label>
-                          <input
-                            type="text"
-                            value={editingCuration.coverImage}
-                            onChange={(e) => setEditingCuration({ ...editingCuration, coverImage: e.target.value })}
-                            className="w-full p-2.5 bg-[#FAF9F5] border border-[#EAE5D9] rounded-lg focus:outline-none focus:border-[#1A1918]"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="text-xs">
-                        <label className="block text-stone-700 font-medium mb-1">핵심 발췌 문구 (Quote) *</label>
-                        <textarea
-                          rows={2}
-                          required
-                          value={editingCuration.quote}
-                          onChange={(e) => setEditingCuration({ ...editingCuration, quote: e.target.value })}
-                          className="w-full p-2.5 bg-[#FAF9F5] border border-[#EAE5D9] rounded-lg focus:outline-none focus:border-[#1A1918]"
-                          placeholder="마음에 가장 깊은 여운을 전하는 핵심 한 문장 발췌"
-                        />
-                      </div>
-
-                      <div className="text-xs">
-                        <label className="block text-stone-700 font-medium mb-1">큐레이터 노상 / 리뷰 에세이 본문 *</label>
-                        <textarea
-                          rows={4}
-                          required
-                          value={editingCuration.review}
-                          onChange={(e) => setEditingCuration({ ...editingCuration, review: e.target.value })}
-                          className="w-full p-2.5 bg-[#FAF9F5] border border-[#EAE5D9] rounded-lg focus:outline-none focus:border-[#1A1918]"
-                          placeholder="이 책을 추천하는 깊은 이유와 감상평 작성"
-                        />
-                      </div>
-
-                      <div className="flex items-center space-x-4 text-xs pt-2">
-                        <label className="flex items-center space-x-2 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={editingCuration.isFeatured || false}
-                            onChange={(e) => setEditingCuration({ ...editingCuration, isFeatured: e.target.checked })}
-                            className="rounded text-[#8C6239] focus:ring-0"
-                          />
-                          <span className="font-medium text-[#1A1918]">메인 하이라이트 큐레이션으로 지정</span>
-                        </label>
-                      </div>
-
-                      <div className="flex items-center justify-end space-x-2 pt-2">
-                        <button
-                          type="button"
-                          onClick={() => setEditingCuration(null)}
-                          className="px-4 py-2 border border-[#EAE5D9] rounded-lg text-xs font-medium hover:bg-stone-100"
-                        >
-                          취소
-                        </button>
-                        <button
-                          type="submit"
-                          className="px-5 py-2 bg-[#8C6239] text-white rounded-lg text-xs font-medium hover:bg-[#6D4C2B]"
-                        >
-                          저장하기
-                        </button>
-                      </div>
-                    </form>
-                  )}
-
-                  {/* List of Curations */}
-                  <div className="space-y-3">
-                    {curations.map((item) => (
-                      <div
-                        key={item.id}
-                        className="bg-white p-4 rounded-xl border border-[#EAE5D9] flex items-center justify-between gap-4 shadow-sm"
-                      >
-                        <div className="flex items-center space-x-4 overflow-hidden">
-                          <img
-                            src={item.coverImage}
-                            alt={item.title}
-                            className="w-12 h-16 object-cover rounded shrink-0"
-                          />
-                          <div className="truncate text-xs space-y-1">
-                            <div className="flex items-center space-x-2">
-                              {item.isFeatured && (
-                                <span className="bg-[#8C6239] text-white text-[9px] px-2 py-0.5 rounded font-bold">
-                                  메인 추천
-                                </span>
-                              )}
-                              <span className="font-bold text-[#1A1918] font-gowun text-sm truncate">
-                                {item.title}
-                              </span>
-                            </div>
-                            <p className="text-stone-500 font-sans-kr">
-                              {item.author} 저 · {item.publisher} ({item.category})
-                            </p>
-                            <p className="text-stone-600 font-serif-kr italic truncate max-w-lg">
-                              “{item.quote}”
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center space-x-2 shrink-0">
-                          <button
-                            onClick={() => setEditingCuration(item)}
-                            className="p-2 text-stone-600 hover:text-[#1A1918] hover:bg-stone-100 rounded-lg"
-                            title="수정"
-                          >
-                            <Edit className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteCuration(item.id)}
-                            className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg"
-                            title="삭제"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Subtab 2: Essay Management */}
-              {contentSubTab === 'essay' && (
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
+              {/* Essay Management */}
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-base font-bold font-gowun text-[#1A1918]">
                         에세이 & 단상 목록 ({essays.length}개)
@@ -707,7 +461,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     ))}
                   </div>
                 </div>
-              )}
             </div>
           )}
 
@@ -1090,6 +843,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-stone-700 font-medium mb-1">Naver Blog URL (네이버 블로그)</label>
+                    <input
+                      type="text"
+                      value={localConfig.socialLinks.naverBlog || ''}
+                      onChange={(e) => setLocalConfig({
+                        ...localConfig,
+                        socialLinks: { ...localConfig.socialLinks, naverBlog: e.target.value }
+                      })}
+                      className="w-full p-2.5 bg-[#FAF9F5] border border-[#EAE5D9] rounded-lg focus:outline-none focus:border-[#1A1918]"
+                      placeholder="https://blog.naver.com/..."
+                    />
+                  </div>
+
                   <div>
                     <label className="block text-stone-700 font-medium mb-1">Instagram URL</label>
                     <input

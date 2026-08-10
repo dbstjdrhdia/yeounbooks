@@ -1,32 +1,27 @@
 import React from 'react';
 import { BookCuration, StoryEssay, SiteConfig, ActiveTab } from '../types';
-import { ArrowRight, Quote, BookOpen, Feather, Sparkles, Bookmark, Share2 } from 'lucide-react';
+
+const NaverIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M16.273 12.845L7.376 0H0v24h7.726v-12.845L16.624 24H24V0h-7.727v12.845z" />
+  </svg>
+);
 
 interface HomeViewProps {
   config: SiteConfig;
-  curations: BookCuration[];
-  essays: StoryEssay[];
+  curations?: BookCuration[];
+  essays?: StoryEssay[];
   setActiveTab: (tab: ActiveTab) => void;
-  onSelectCuration: (id: string) => void;
-  onSelectEssay: (id: string) => void;
-  bookmarks: string[];
-  onToggleBookmark: (id: string) => void;
+  onSelectCuration?: (id: string) => void;
+  onSelectEssay?: (id: string) => void;
+  bookmarks?: string[];
+  onToggleBookmark?: (id: string) => void;
 }
 
 export const HomeView: React.FC<HomeViewProps> = ({
   config,
-  curations,
-  essays,
   setActiveTab,
-  onSelectCuration,
-  onSelectEssay,
-  bookmarks,
-  onToggleBookmark,
 }) => {
-  // Featured items
-  const featuredCurations = curations.filter(c => c.isFeatured).slice(0, 2);
-  const featuredEssays = essays.filter(e => e.isFeatured).slice(0, 2);
-
   const hero = config.heroBanner;
   const rawQuote = hero.quote || hero.title || '';
   const cleanQuote = rawQuote.replace(/^[“"'\s]+|[”"'\s]+$/g, '');
@@ -40,225 +35,136 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
         <div className="relative z-10 text-center max-w-2xl px-6">
           <span className="text-[10px] uppercase tracking-[0.3em] text-[#8E8373] mb-6 block font-bold">
-            {hero.badgeText || 'Monthly Curation — No. 12'}
+            {hero.badgeText || 'Yeoun Books'}
           </span>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif leading-relaxed mb-8 text-[#1A1A1A] whitespace-pre-line font-medium tracking-tight">
             “{cleanQuote}”
           </h1>
-          <p className="text-sm text-gray-500 leading-relaxed font-light mb-10 max-w-xl mx-auto break-keep">
+          <p className="text-sm text-gray-500 leading-relaxed font-light max-w-xl mx-auto break-keep whitespace-pre-line">
             {hero.subtitle || '시간이 흘러도 빛이 바래지 않는 텍스트의 힘을 믿습니다.'}
           </p>
-          <div className="flex items-center justify-center space-x-4">
-            <button
-              onClick={() => {
-                if (hero.linkToId) {
-                  if (hero.linkToType === 'curation') onSelectCuration(hero.linkToId);
-                  else if (hero.linkToType === 'story') onSelectEssay(hero.linkToId);
-                } else {
-                  setActiveTab('curation');
-                }
-              }}
-              className="px-10 py-3 border border-black text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors cursor-pointer"
-            >
-              Explore Archive
-            </button>
-            <button
-              onClick={() => setActiveTab('about')}
-              className="px-6 py-3 text-xs uppercase tracking-widest text-gray-500 hover:text-black transition-colors"
-            >
-              About
-            </button>
-          </div>
         </div>
       </section>
 
       {/* Operational Notice Banner (Minimalist style) */}
       {config.operationalNotice.enabled && (
-        <section className="bg-white border-t border-b border-gray-100 py-4 px-8">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-xs tracking-wide space-y-2 md:space-y-0">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-[#8E8373] font-semibold">
-              {config.operationalNotice.modelType === 'monthly' ? '00 — Monthly Theme Exhibition' : '00 — Portfolio Showroom'}
+        <section className="bg-white border-t border-b border-gray-100 py-5 px-6">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-xs tracking-wide space-y-3 md:space-y-0">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-[#8E8373] font-mono shrink-0">
+              00 — Prologue
             </span>
-            <p className="font-serif italic text-gray-600">
-              "{config.operationalNotice.bannerText}"
+            <p className="font-serif text-gray-600 flex-1 md:text-center px-4 leading-relaxed whitespace-pre-line break-keep md:whitespace-normal">
+              {config.operationalNotice.bannerText}
             </p>
             <button
-              onClick={() => setActiveTab('curation')}
-              className="text-[10px] uppercase tracking-widest underline underline-offset-4 hover:text-gray-500"
+              onClick={() => setActiveTab('about')}
+              className="text-[10px] uppercase tracking-widest text-black hover:text-gray-500 transition-colors flex items-center space-x-2 shrink-0 font-medium"
             >
-              View Exhibition
+              <span>Our Story</span>
+              <span>→</span>
             </button>
           </div>
         </section>
       )}
 
-      {/* 2. Horizontal Featured Cards (Clean Minimalism 3-Column Horizontal Grid) */}
-      <section className="bg-white border-t border-b border-gray-100 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
-        {/* Card 1 — Curation */}
-        {featuredCurations[0] && (
-          <div
-            onClick={() => onSelectCuration(featuredCurations[0].id)}
-            className="p-8 flex flex-col justify-between hover:bg-gray-50 transition-colors cursor-pointer group"
-          >
-            <div>
-              <div className="flex items-center justify-between">
-                <span className="text-[9px] uppercase tracking-widest text-gray-400 font-mono">01 — Curation</span>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleBookmark(featuredCurations[0].id);
-                  }}
-                  className="text-gray-400 hover:text-black"
-                >
-                  <Bookmark className={`w-3.5 h-3.5 ${bookmarks.includes(featuredCurations[0].id) ? 'fill-black text-black' : ''}`} />
-                </button>
-              </div>
-              <h3 className="text-xl font-serif mt-3 text-[#1A1A1A] group-hover:italic transition-all">
-                {featuredCurations[0].title}
-              </h3>
-              <p className="text-xs text-gray-400 leading-relaxed mt-3 line-clamp-2">
-                {featuredCurations[0].subtitle || featuredCurations[0].quote}
-              </p>
+      {/* Upcoming Books Section */}
+      {config.upcomingBooks && config.upcomingBooks.length > 0 && (
+        <section className="py-24 bg-[#FAFAFA] border-t border-b border-gray-100">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <span className="text-[10px] uppercase tracking-widest text-[#8E8373] font-mono block mb-4">Upcoming</span>
+              <h2 className="text-2xl font-serif text-[#1A1A1A]">출간을 앞둔 원고들</h2>
             </div>
-            <div className="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400 uppercase tracking-widest">
-              <span>{featuredCurations[0].author}</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </div>
-          </div>
-        )}
-
-        {/* Card 2 — Essay */}
-        {featuredEssays[0] && (
-          <div
-            onClick={() => onSelectEssay(featuredEssays[0].id)}
-            className="p-8 flex flex-col justify-between hover:bg-gray-50 transition-colors cursor-pointer group"
-          >
-            <div>
-              <div className="flex items-center justify-between">
-                <span className="text-[9px] uppercase tracking-widest text-gray-400 font-mono">02 — Essay</span>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleBookmark(featuredEssays[0].id);
-                  }}
-                  className="text-gray-400 hover:text-black"
-                >
-                  <Bookmark className={`w-3.5 h-3.5 ${bookmarks.includes(featuredEssays[0].id) ? 'fill-black text-black' : ''}`} />
-                </button>
-              </div>
-              <h3 className="text-xl font-serif mt-3 text-[#1A1A1A] group-hover:italic transition-all">
-                {featuredEssays[0].title}
-              </h3>
-              <p className="text-xs text-gray-400 leading-relaxed mt-3 line-clamp-2">
-                {featuredEssays[0].subtitle || featuredEssays[0].excerpt}
-              </p>
-            </div>
-            <div className="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400 uppercase tracking-widest">
-              <span>{featuredEssays[0].authorName || 'Essay'}</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-5xl mx-auto">
+              {config.upcomingBooks.map((book, idx) => (
+                <div key={idx} className="flex flex-col items-center group">
+                  <div className={`w-64 h-80 sm:h-96 ${book.coverStyle} p-6 flex flex-col justify-between shadow-sm group-hover:shadow-md transition-shadow relative mb-8`}>
+                    <div className="text-center text-white/80 text-[10px] tracking-widest pt-4 break-keep">
+                      {book.tagline}
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                      <h3 
+                        className="text-xl sm:text-2xl text-white font-serif tracking-widest mx-auto leading-relaxed text-center"
+                        style={book.isVerticalTitle ? { writingMode: 'vertical-rl' } : undefined}
+                      >
+                        {book.title}
+                      </h3>
+                    </div>
+                    <div className="text-center text-white/90 text-xs pb-4">
+                      {book.author}
+                    </div>
+                  </div>
+                  <div className="text-center max-w-sm px-4 sm:px-0">
+                    <h4 className="text-lg font-serif text-[#1A1A1A] mb-3">{book.title}</h4>
+                    <p className="text-[13px] text-gray-500 leading-relaxed break-keep">
+                      {book.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        )}
+        </section>
+      )}
 
-        {/* Card 3 — Philosophy / Additional Curation */}
+      {/* 2. Horizontal Featured Cards (Clean Minimalism 2-Column Horizontal Grid) */}
+      <section className="bg-white border-t border-b border-gray-100 grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+        {/* Card 1 — Identity */}
         <div
           onClick={() => setActiveTab('about')}
-          className="p-8 flex flex-col justify-between hover:bg-gray-50 transition-colors cursor-pointer group"
+          className="p-10 lg:p-12 flex flex-col justify-between hover:bg-gray-50 transition-colors cursor-pointer group"
         >
           <div>
-            <span className="text-[9px] uppercase tracking-widest text-gray-400 font-mono">03 — Philosophy</span>
-            <h3 className="text-xl font-serif mt-3 text-[#1A1A1A] group-hover:italic transition-all">
-              여운이 남는 삶의 태도
+            <span className="text-[10px] uppercase tracking-widest text-[#8E8373] font-mono">01 — Identity</span>
+            <h3 className="text-2xl sm:text-3xl font-serif mt-6 text-[#1A1A1A] group-hover:italic transition-all">
+              여운책방 소개
             </h3>
-            <p className="text-xs text-gray-400 leading-relaxed mt-3">
-              여운책방이 추구하는 템포와 브랜드 철학을 담은 첫 번째 소개서.
+            <p className="text-sm text-gray-500 leading-relaxed mt-6 break-keep">
+              가벼운 위로가 범람하는 시대,<br className="hidden sm:block" />
+              보이지 않는 마음의 결을 짚어내는 심리 전문 출판사입니다.
             </p>
           </div>
-          <div className="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400 uppercase tracking-widest">
-            <span>Read Manifest</span>
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          <div className="mt-12 pt-6 border-t border-gray-100 flex items-center justify-between text-[10px] text-[#8E8373] uppercase tracking-widest font-semibold">
+            <span>Read Story</span>
+            <span className="group-hover:translate-x-2 transition-transform">→</span>
           </div>
         </div>
-      </section>
 
-      {/* 3. Detailed Curated Archive Section */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 py-20 space-y-16">
-        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-gray-200 pb-6">
+        {/* Card 2 — Social & Blog */}
+        <a
+          href={config.socialLinks?.naverBlog || 'https://blog.naver.com'}
+          target="_blank"
+          rel="noreferrer"
+          className="p-10 lg:p-12 flex flex-col justify-between hover:bg-gray-50 transition-colors cursor-pointer group"
+        >
           <div>
-            <span className="text-[10px] uppercase tracking-[0.3em] text-[#8E8373] font-bold block mb-2">
-              Curated Selection
-            </span>
-            <h2 className="text-3xl font-serif text-[#1A1A1A]">
-              여운의 서가
-            </h2>
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase tracking-widest text-[#8E8373] font-mono">02 — Journal</span>
+              <NaverIcon className="w-4 h-4 text-gray-400 group-hover:text-black transition-colors" />
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-serif mt-6 text-[#1A1A1A] group-hover:italic transition-all">
+              네이버 블로그
+            </h3>
+            <p className="text-sm text-gray-500 leading-relaxed mt-6 break-keep">
+              첫 번째 심리 에세이가 만들어지는 과정과<br className="hidden sm:block" />
+              고요한 사색의 기록들을 블로그를 통해 먼저 나누고 있습니다.
+            </p>
           </div>
-          <button
-            onClick={() => setActiveTab('curation')}
-            className="text-xs uppercase tracking-widest text-gray-500 hover:text-black mt-4 md:mt-0"
-          >
-            View All Curations ({curations.length}) →
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {curations.map((item, idx) => {
-            const isBookmarked = bookmarks.includes(item.id);
-            return (
-              <div
-                key={item.id}
-                onClick={() => onSelectCuration(item.id)}
-                className="group border border-gray-100 bg-white p-6 flex flex-col justify-between hover:border-black transition-all duration-300 cursor-pointer"
-              >
-                <div>
-                  <div className="relative aspect-[3/2] overflow-hidden mb-6 bg-stone-50">
-                    <img
-                      src={item.coverImage}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleBookmark(item.id);
-                      }}
-                      className="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white transition-colors"
-                    >
-                      <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-black text-black' : 'text-gray-600'}`} />
-                    </button>
-                  </div>
-
-                  <span className="text-[9px] uppercase tracking-widest text-[#8E8373] font-mono block mb-2">
-                    Curation No. 0{idx + 1}
-                  </span>
-                  <h3 className="text-lg font-serif font-bold text-[#1A1A1A] group-hover:italic transition-all">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-gray-500 mt-1 italic">
-                    {item.subtitle}
-                  </p>
-                  <p className="text-xs text-gray-400 mt-4 line-clamp-3 leading-relaxed">
-                    "{item.quote}"
-                  </p>
-                </div>
-
-                <div className="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400 uppercase tracking-widest">
-                  <span>{item.author}</span>
-                  <span className="text-black font-medium">Read More</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+          <div className="mt-12 pt-6 border-t border-gray-100 flex items-center justify-between text-[10px] text-[#8E8373] uppercase tracking-widest font-semibold">
+            <span>Visit Blog</span>
+            <span className="group-hover:translate-x-2 transition-transform">→</span>
+          </div>
+        </a>
       </section>
 
-      {/* 4. Minimal Quote Philosophy Statement */}
-      <section className="border-t border-gray-100 bg-white py-20 px-6 text-center">
+      {/* 3. Minimal Quote Philosophy Statement */}
+      <section className="border-t border-gray-100 bg-white py-24 px-6 text-center">
         <div className="max-w-3xl mx-auto space-y-6">
           <span className="text-[10px] uppercase tracking-[0.3em] text-[#8E8373] font-mono">
             Yeoun Books Statement
           </span>
           <p className="text-lg sm:text-2xl md:text-3xl font-serif italic text-[#1A1A1A] leading-relaxed break-keep">
-            "시간이 흘러도 빛이 바래지 않는 텍스트의 힘을 믿습니다."
+            "흔들리는 마음에 조용한 닻을 내리는,<br className="hidden sm:block" /> 단단한 문장의 힘을 믿습니다."
           </p>
         </div>
       </section>

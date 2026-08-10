@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { ActiveTab, SiteConfig } from '../types';
 import { Instagram, Menu, X } from 'lucide-react';
 
+const NaverIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M16.273 12.845L7.376 0H0v24h7.726v-12.845L16.624 24H24V0h-7.727v12.845z" />
+  </svg>
+);
+
 interface HeaderProps {
   config: SiteConfig;
   activeTab: ActiveTab;
@@ -21,22 +27,12 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const getFontClass = () => {
-    switch (config.theme.fontStyle) {
-      case 'gowun':
-        return 'font-gowun';
-      case 'serif':
-        return 'font-serif-kr';
-      default:
-        return 'font-sans-kr';
-    }
-  };
-
   const navItems: { id: ActiveTab; label: string; sublabel: string }[] = [
     { id: 'about', label: 'About', sublabel: '여운소개' },
-    { id: 'curation', label: 'Curation', sublabel: '여운의 책' },
-    { id: 'story', label: 'Story', sublabel: '여운의 글' },
   ];
+
+  const instagramUrl = config.socialLinks?.instagram || 'https://instagram.com';
+  const naverBlogUrl = config.socialLinks?.naverBlog || 'https://blog.naver.com';
 
   return (
     <header className="sticky top-0 z-30 bg-[#FDFCFB]/90 backdrop-blur-sm border-b border-gray-100 transition-all duration-300">
@@ -54,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Desktop Main Menu (Center - Clean Minimalist Nav) */}
         <nav className="hidden md:flex space-x-12 absolute left-1/2 -translate-x-1/2">
           {navItems.map((item) => {
-            const isActive = activeTab === item.id || (activeTab === `${item.id}-detail` as ActiveTab);
+            const isActive = activeTab === item.id;
             return (
               <button
                 key={item.id}
@@ -69,29 +65,26 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* Right Action Icons (Instagram) */}
-        <div className="hidden md:flex items-center space-x-4">
-          {config.socialLinks?.instagram ? (
-            <a
-              href={config.socialLinks.instagram}
-              target="_blank"
-              rel="noreferrer"
-              className="p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100 flex items-center justify-center"
-              title="Instagram"
-            >
-              <Instagram className="w-4 h-4" />
-            </a>
-          ) : (
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noreferrer"
-              className="p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100 flex items-center justify-center"
-              title="Instagram"
-            >
-              <Instagram className="w-4 h-4" />
-            </a>
-          )}
+        {/* Right Action Icons (Naver Blog & Instagram) */}
+        <div className="hidden md:flex items-center space-x-3">
+          <a
+            href={naverBlogUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100 flex items-center justify-center"
+            title="Naver Blog"
+          >
+            <NaverIcon className="w-3.5 h-3.5" />
+          </a>
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100 flex items-center justify-center"
+            title="Instagram"
+          >
+            <Instagram className="w-4 h-4" />
+          </a>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -125,9 +118,18 @@ export const Header: React.FC<HeaderProps> = ({
             ))}
           </div>
 
-          <div className="flex items-center justify-end pt-4 border-t border-gray-100">
+          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
             <a
-              href={config.socialLinks?.instagram || "https://instagram.com"}
+              href={naverBlogUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="p-2 text-gray-600 hover:text-black transition-colors"
+              title="Naver Blog"
+            >
+              <NaverIcon className="w-4 h-4" />
+            </a>
+            <a
+              href={instagramUrl}
               target="_blank"
               rel="noreferrer"
               className="p-2 text-gray-600 hover:text-black transition-colors"

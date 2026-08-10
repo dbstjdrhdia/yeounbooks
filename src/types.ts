@@ -49,7 +49,7 @@ export interface SiteConfig {
     quote: string;
     imageUrl: string;
     badgeText: string;
-    linkToType: 'curation' | 'story' | 'about';
+    linkToType: 'story' | 'about';
     linkToId?: string;
   };
   theme: {
@@ -59,15 +59,25 @@ export interface SiteConfig {
   };
   operationalNotice: {
     enabled: boolean;
-    bannerText: string; // e.g., "매월 1일, 마음에 긴 여운을 남기는 새로운 글과 책이 찾아옵니다."
+    bannerText: string;
     modelType: 'monthly' | 'portfolio' | 'sns';
   };
   socialLinks: {
     instagram: string;
+    naverBlog?: string;
     substack: string;
     youtube: string;
     email: string;
   };
+  upcomingBooks: {
+    title: string;
+    subtitle: string;
+    author: string;
+    description: string;
+    coverStyle: string;
+    isVerticalTitle?: boolean;
+    tagline?: string;
+  }[];
   seo: {
     metaTitle: string;
     metaDescription: string;
@@ -76,4 +86,4 @@ export interface SiteConfig {
   };
 }
 
-export type ActiveTab = 'home' | 'about' | 'curation' | 'story' | 'curation-detail' | 'story-detail';
+export type ActiveTab = 'home' | 'about';
