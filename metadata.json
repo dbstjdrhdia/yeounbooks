@@ -1,0 +1,6 @@
+{
+  "name": "여운책방 (Yeoun Books)",
+  "description": "마음에 긴 여운을 남기는 문장과 이야기 - 타임리스 큐레이션 및 에세이 아카이브",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

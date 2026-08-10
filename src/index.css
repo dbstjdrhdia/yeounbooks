@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-serif-kr {
+    font-family: 'Noto Serif KR', serif;
+  }
+  .font-gowun {
+    font-family: 'Gowun Batang', serif;
+  }
+  .font-sans-kr {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+}
+
+body {
+  background-color: #FDFCFB;
+  color: #1A1A1A;
+}
+
+/* Custom scrollbar & smooth transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FDFCFB;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #EBE7E0;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8E8373;
+}
+
