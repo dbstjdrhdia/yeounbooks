@@ -44,7 +44,7 @@ export const INITIAL_SITE_CONFIG: SiteConfig = {
       subtitle: '상실과 회복의 관점에서 따뜻하게 짚어내는 과거',
       author: '김푸름 지음',
       description: '과거에 대한 막연한 그리움이 어떻게 우리의 현재를 지탱하고 내일을 향해 나아가게 하는지, 심리학적 관점에서 따뜻하게 짚어냅니다.',
-      coverImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', // Placeholder sunset image similar to the cover
+      coverImage: '/book1.jpg',
       isVerticalTitle: true,
       tagline: '노스탤지어는 내일을 살아갈 작은 힘이 된다',
     },
@@ -53,16 +53,16 @@ export const INITIAL_SITE_CONFIG: SiteConfig = {
       subtitle: '다시 일어서는 내면의 힘',
       author: '김푸름 지음',
       description: '국제평화유지군의 상처와 회복. 스스로를 믿는 감각인 \'자기효능감\'이 어떻게 무너진 삶을 다시 일으키는 굳건한 축이 되는지 탐구합니다.',
-      coverStyle: 'bg-[#1a3a2d]',
+      coverImage: '/book2.jpg',
       isVerticalTitle: false,
       tagline: '나는 견딜 수 있다',
     }
   ],
   seo: {
-    metaTitle: '여운책방 (Yeoun Books) - 마음에 긴 여운을 남기는 문장과 이야기',
-    metaDescription: '시간이 지나도 가치를 잃지 않는 에버그린 도서 큐레이션과 깊이 있는 에세이 아카이브 공간입니다.',
+    metaTitle: '여운책방 (Yeoun Books) - 마음의 궤적을 쫓는 심리 전문 출판사',
+    metaDescription: '보이지 않는 마음의 결을 섬세하게 짚어내는 곳. 시간이 지나도 가치를 잃지 않는 단단한 문장과 위로를 전하는 심리 전문 출판사입니다.',
     ogImage: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80',
-    keywords: '여운책방, 에세이, 도서 큐레이션, 감성 문장, 에버그린 아카이브, 독서, 책추천'
+    keywords: '여운책방, 심리 에세이, 심리학 도서, 출판사, 마음, 위로, 독서, 책추천'
   }
 };
 

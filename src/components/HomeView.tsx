@@ -78,27 +78,29 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-5xl mx-auto">
               {config.upcomingBooks.map((book, idx) => (
                 <div key={idx} className="flex flex-col items-center group">
-                  <div className={`w-64 h-80 sm:h-96 ${book.coverStyle || 'bg-gray-100'} p-6 flex flex-col justify-between shadow-sm group-hover:shadow-md transition-shadow relative mb-8 overflow-hidden`}>
-                    {book.coverImage && (
-                      <div className="absolute inset-0 z-0">
-                        <img src={book.coverImage} alt={book.title} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
-                        <div className="absolute inset-0 bg-black/30"></div>
+                  <div className={`w-64 h-80 sm:h-[26rem] ${book.coverStyle || 'bg-gray-100'} shadow-sm group-hover:shadow-md transition-shadow relative mb-8 overflow-hidden`}>
+                    {book.coverImage ? (
+                      <div className="absolute inset-0 z-0 bg-white">
+                        <img src={book.coverImage} alt={book.title} className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700" />
+                      </div>
+                    ) : (
+                      <div className="p-6 flex flex-col justify-between h-full w-full">
+                        <div className="relative z-10 text-center text-white/90 text-[10px] tracking-widest pt-4 break-keep">
+                          {book.tagline}
+                        </div>
+                        <div className="relative z-10 flex-1 flex items-center justify-center">
+                          <h3 
+                            className="text-xl sm:text-2xl text-white font-serif tracking-widest mx-auto leading-relaxed text-center drop-shadow-md"
+                            style={book.isVerticalTitle ? { writingMode: 'vertical-rl' } : undefined}
+                          >
+                            {book.title}
+                          </h3>
+                        </div>
+                        <div className="relative z-10 text-center text-white/90 text-xs pb-4 drop-shadow-sm">
+                          {book.author}
+                        </div>
                       </div>
                     )}
-                    <div className="relative z-10 text-center text-white/90 text-[10px] tracking-widest pt-4 break-keep">
-                      {book.tagline}
-                    </div>
-                    <div className="relative z-10 flex-1 flex items-center justify-center">
-                      <h3 
-                        className="text-xl sm:text-2xl text-white font-serif tracking-widest mx-auto leading-relaxed text-center drop-shadow-md"
-                        style={book.isVerticalTitle ? { writingMode: 'vertical-rl' } : undefined}
-                      >
-                        {book.title}
-                      </h3>
-                    </div>
-                    <div className="relative z-10 text-center text-white/90 text-xs pb-4 drop-shadow-sm">
-                      {book.author}
-                    </div>
                   </div>
                   <div className="text-center max-w-sm px-4 sm:px-0">
                     <h4 className="text-lg font-serif text-[#1A1A1A] mb-3">{book.title}</h4>
@@ -126,7 +128,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               여운책방 소개
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed mt-6 break-keep">
-              가벼운 위로가 범람하는 시대,<br className="hidden sm:block" />
+              가벼운 위로가 범람하는 시대, <br className="hidden sm:block" />
               보이지 않는 마음의 결을 짚어내는 심리 전문 출판사입니다.
             </p>
           </div>
@@ -152,7 +154,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               네이버 블로그
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed mt-6 break-keep">
-              첫 번째 심리 에세이가 만들어지는 과정과<br className="hidden sm:block" />
+              첫 번째 심리 에세이가 만들어지는 과정과 <br className="hidden sm:block" />
               고요한 사색의 기록들을 블로그를 통해 먼저 나누고 있습니다.
             </p>
           </div>
@@ -170,7 +172,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             Yeoun Books Statement
           </span>
           <p className="text-lg sm:text-2xl md:text-3xl font-serif italic text-[#1A1A1A] leading-relaxed break-keep">
-            "흔들리는 마음에 조용한 닻을 내리는,<br className="hidden sm:block" /> 단단한 문장의 힘을 믿습니다."
+            "흔들리는 마음에 조용한 닻을 내리는, <br className="hidden sm:block" /> 단단한 문장의 힘을 믿습니다."
           </p>
         </div>
       </section>
