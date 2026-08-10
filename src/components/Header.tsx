@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ActiveTab, SiteConfig } from '../types';
-import { BookOpen, Settings, Bookmark, Instagram, Mail, Sparkles, Menu, X } from 'lucide-react';
+import { Bookmark, Instagram, Menu, X } from 'lucide-react';
 
 interface HeaderProps {
   config: SiteConfig;
@@ -40,20 +40,9 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-30 bg-[#FDFCFB]/90 backdrop-blur-sm border-b border-gray-100 transition-all duration-300">
-      {/* Top Operational Notice Banner */}
-      {config.operationalNotice.enabled && (
-        <div className="bg-[#1A1A1A] text-[#FDFCFB] text-[11px] py-2 px-4 text-center tracking-[0.15em] uppercase font-sans flex items-center justify-center space-x-2">
-          <Sparkles className="w-3 h-3 text-[#8E8373] shrink-0" />
-          <span className="truncate">{config.operationalNotice.bannerText}</span>
-        </div>
-      )}
-
       <div className="max-w-7xl mx-auto px-6 sm:px-12 h-20 flex items-center justify-between relative">
         {/* Logo (Left) */}
         <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
-          <div className="w-8 h-8 rounded-full border border-black flex items-center justify-center font-serif text-sm font-bold text-[#1A1A1A] group-hover:bg-black group-hover:text-white transition-colors">
-            여
-          </div>
           <div>
             <span className="text-2xl font-serif font-bold tracking-tighter text-[#1A1A1A] block">
               {config.siteName}
@@ -82,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* Right Action Icons & Admin Toggle */}
+        {/* Right Action Icons */}
         <div className="hidden md:flex items-center space-x-4">
           {/* Bookmarks */}
           <button
@@ -98,51 +87,25 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </button>
 
-          {/* Social Links */}
+          {/* Instagram Only */}
           {config.socialLinks.instagram && (
             <a
               href={config.socialLinks.instagram}
               target="_blank"
               rel="noreferrer"
-              className="w-6 h-6 rounded-full border border-black flex items-center justify-center text-[10px] font-mono hover:bg-black hover:text-white transition-colors"
+              className="p-2 text-gray-600 hover:text-black transition-colors rounded-full hover:bg-gray-100 flex items-center justify-center"
               title="Instagram"
             >
-              IG
+              <Instagram className="w-4 h-4" />
             </a>
           )}
-          {config.socialLinks.email && (
-            <a
-              href={`mailto:${config.socialLinks.email}`}
-              className="w-6 h-6 rounded-full border border-black flex items-center justify-center text-[10px] font-mono hover:bg-black hover:text-white transition-colors"
-              title="Email Contact"
-            >
-              MAIL
-            </a>
-          )}
-
-          {/* Admin Dashboard Button */}
-          <button
-            onClick={onOpenAdmin}
-            className="flex items-center space-x-1.5 border border-black text-[#1A1A1A] hover:bg-black hover:text-white px-3 py-1.5 text-[11px] uppercase tracking-widest transition-colors focus:outline-none"
-            title="관리자 설정 & 에디터"
-          >
-            <Settings className="w-3 h-3" />
-            <span>Edit</span>
-          </button>
         </div>
 
         {/* Mobile Menu Toggle */}
         <div className="md:hidden flex items-center space-x-2">
           <button
-            onClick={onOpenAdmin}
-            className="p-2 bg-[#1A1918] text-white rounded-full focus:outline-none"
-            title="관리자 설정"
-          >
-            <Settings className="w-4 h-4" />
-          </button>
-          <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-[#1A1918] focus:outline-none"
+            className="p-2 text-[#1A1A1A] focus:outline-none"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -151,7 +114,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[#EAE5D9] bg-[#FAF9F5] px-6 py-6 space-y-4">
+        <div className="md:hidden border-t border-gray-100 bg-[#FDFCFB] px-6 py-6 space-y-4">
           <div className="flex flex-col space-y-3">
             {navItems.map((item) => (
               <button
@@ -160,37 +123,38 @@ export const Header: React.FC<HeaderProps> = ({
                   setActiveTab(item.id);
                   setMobileMenuOpen(false);
                 }}
-                className={`text-left py-2 border-b border-[#EAE5D9]/50 text-base font-medium font-sans-kr ${
-                  activeTab === item.id ? 'text-[#1A1918] font-bold' : 'text-[#665F55]'
+                className={`text-left py-2 border-b border-gray-100 text-sm uppercase tracking-widest ${
+                  activeTab === item.id ? 'text-black font-bold' : 'text-gray-500'
                 }`}
               >
-                {item.label} <span className="text-xs text-stone-500 font-serif-kr">({item.sublabel})</span>
+                {item.label}
               </button>
             ))}
           </div>
 
-          <div className="flex items-center justify-between pt-4">
+          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
             <button
               onClick={() => {
                 onOpenBookmarks();
                 setMobileMenuOpen(false);
               }}
-              className="flex items-center space-x-2 text-sm text-[#665F55]"
+              className="flex items-center space-x-2 text-xs uppercase tracking-widest text-gray-600"
             >
               <Bookmark className="w-4 h-4" />
-              <span>보관함 ({bookmarkCount})</span>
+              <span>Bookmarks ({bookmarkCount})</span>
             </button>
 
-            <button
-              onClick={() => {
-                onOpenAdmin();
-                setMobileMenuOpen(false);
-              }}
-              className="flex items-center space-x-2 text-xs bg-[#1A1918] text-white px-3 py-1.5 rounded-full"
-            >
-              <Settings className="w-3.5 h-3.5" />
-              <span>관리자 대시보드</span>
-            </button>
+            {config.socialLinks.instagram && (
+              <a
+                href={config.socialLinks.instagram}
+                target="_blank"
+                rel="noreferrer"
+                className="p-2 text-gray-600 hover:text-black transition-colors"
+                title="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+            )}
           </div>
         </div>
       )}
